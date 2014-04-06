@@ -1,0 +1,29 @@
+{% extends "base_handicap.html" %}
+		{% block javascript %}
+        <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type='text/javascript'>
+      google.load('visualization', '1', {'packages':['annotatedtimeline']});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', 'Date');
+        data.addColumn('number', 'Handicap');
+        data.addRows([
+            {%for score in scores%}
+                [new Date({{score.year}}, {{score.month}}, {{score.day}}), {{score.handicap}}],
+            {%endfor%}
+         ]);
+//[new Date(2008, 1 ,1), 30000, undefined, undefined, 40645, undefined, undefined],
+
+
+        var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));
+        chart.draw(data, {displayAnnotations: true});
+      }
+    </script>
+    {%endblock%}
+    {% block main_content %}
+    {{message}}
+    <h1>Handicap History</h1>
+    <div id='chart_div' style='width: 500px; height: 340px;'></div><br/><br/>
+
+  {%endblock%}

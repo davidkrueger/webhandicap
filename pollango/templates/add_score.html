@@ -1,0 +1,130 @@
+{% extends "base_handicap.html" %}
+        {%block javascript%}
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script> 
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.5.3/jquery-ui.min.js"></script>
+            <script type="text/javascript" src="/stylesheets/add_score.js"></script>
+        {%endblock%}
+        {%block sidebar%}
+        {%endblock%}
+		{% block main_content %}
+			<!-- insert the page content here -->
+			<h1>
+			{% if message %}
+			{{message}}
+			{% endif %}
+			</h1>
+			{% if form %}
+				<h1>Add a new Score:</h1>
+				<form action="." method="post" id='score_form'>
+				{{form.as_p}}
+                {% block ESC %}
+                    <div id="ESC">
+                        
+                    </div>
+
+                {% endblock %}
+                
+                </thead>
+                <tbody>
+             <!--
+                {% if score_leave %}
+				<p><h2>My score:</h2><br/>
+
+                <table><thead>
+                <tr>
+                    <th>Hole:</th>
+                    {%for i in front_range%}
+                        <td>{{i}}</td>
+                    {%endfor%}
+                    <th>Out</th>
+                    {%for i in back_range%}
+                        <td>{{i}}</td>
+                    {%endfor%}
+                    <th>In</th>
+                    <th>Total</th>
+                    
+				</tr>
+                <tr>
+                    <th>Par</th>
+                    {%for i in front_par%}
+                        <td>{{i}}</td>
+                    {%endfor%}
+                    <th>{{front_par_total}}</th>
+                    {%for i in back_par%}
+                        <td>{{i}}</td>
+                    {%endfor%}
+                    <th>{{back_par_total}}</th>
+                    <th>{{par_total}}</th>
+                </tr>
+                <tr>
+                    <th>Score</th>
+                    {%for i in front_range%}
+                        <td><input type='text' size='1' id='score{{i}}' name='score{{i}}' onkeypress="return update_scores();"/></td>
+                    {%endfor%}
+                    <th><div id='out_score'></div></th>
+                     {%for i in back_range%}
+                        <td><input type='text' size='1' id='score{{i}}' name='score{{i}}' onkeypress="return update_scores();"/></td>
+                    {%endfor%}
+
+                    <th><div id='in_score'></div></th>
+                    <th><div id='tot_score'></div></th>
+                    <script>
+                        function update_scores(){
+                            var outscore = document.getElementById('out_score');
+                            var inscore = document.getElementById('in_score');
+                            var totalscore = document.getElementById('tot_score');
+                            var form = document.getElementById('score_form');
+                            var i = 1
+                            var out_score = 0;
+                            var in_score = 0
+                            for(i = 1; i < 10; i++){
+                                var score = form.elements["score" + i].value;
+                                if (score != ''){
+                                    score = parseInt(score);
+                                    out_score += score;
+                                }
+                            }
+                            for(i = 10; i < 19; i++){
+                                var score = form.elements["score" + i].value;
+                                if (score != ''){
+                                    score = parseInt(score);
+                                    in_score += score;
+                                }
+                            }
+                            var score = in_score;
+                            inscore.innerHTML = score;
+                            var score = out_score;
+                            outscore.innerHTML = score;
+                            totalscore.innerHTML = in_score + out_score;
+                            }
+                    </script>
+                </tr>
+                </thead>
+                <tbody>
+                {% for score in scores %}
+					<tr>
+                        <td><a href="/edit_score/{{score.key.id}}">Edit</a></td>
+                        <td><a href="/delete_score/{{score.key.id}}">Delete</a></td>
+                        <td>{{ score.used_in_calculation }}</td>
+                        <td>{{ score.course.name }}</td>
+                        <td>{{ score.gross_score }}</td>
+                        <td>{{ score.par }}</td>
+                        <td>{{ score.date|date:"m/d/Y"}}</td>
+                    </tr>
+				
+				{% endfor %}
+                </tbody>
+                </table>
+                		        
+
+			{% endif %}-->
+            	<input type="submit" name="addscore" value="Add Score" />
+                </form>
+				</p>
+                </tbody>
+                </table>
+			{% endif %}
+			<br/>
+			<br/>
+			<br/>
+       {% endblock %}

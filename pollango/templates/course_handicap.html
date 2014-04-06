@@ -1,0 +1,20 @@
+{% extends "base_handicap.html" %}
+        {% block javascript %}
+            <script type="text/javascript" src="/stylesheets/jquery-latest.js"></script> 
+            <script type="text/javascript" src="/stylesheets/jquery.tablesorter.min.js"></script> 
+            <script type="text/javascript" src="/stylesheets/sort_table_commands.js"></script> 
+            <script type="text/javascript" src="/stylesheets/course_handicap.js"></script>
+        {% endblock %}
+		{% block main_content %}
+			{%if form%}
+                <h1>Calculate Course Handicap:</h1>
+                <form action="." method="post">
+                {{form.as_p}}
+                <input type="button" name="submit" id="id_submit" value="Calculate" />
+
+				</form>
+                <p>Course Handicap:<div id="course_handicap"></div></p>
+             {%endif%}
+                     
+				
+       {% endblock %}

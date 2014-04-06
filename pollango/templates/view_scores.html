@@ -1,0 +1,73 @@
+{% extends "base_handicap.html" %}
+    {% block javascript%}
+        <script type="text/javascript" src="/stylesheets/jquery-latest.js"></script> 
+        <script type="text/javascript" src="/stylesheets/jquery.tablesorter.min.js"></script> 
+        <script type="text/javascript" src="/stylesheets/sort_table_commands.js"></script> 
+    {% endblock %}
+		{% block main_content %}
+
+			<!-- insert the page content here -->
+			<h1></h1>
+			{% if handicap %}
+				<h1>Handicap Index: {{handicap}}</h1><br/>
+                <a href="/add_score">Add a new score</a><br/>
+                <a href="/plot_handicap">View handicap history</a>
+			{% endif %}
+			{% if scores %}
+				<p><h2>My scores:</h2><br/> <i>(click column name to sort)<br/>(* means used to calculate handicap)</i>
+                <table id="myTable" class="tablesorter"> <thead>
+                <tr>   
+                    <th>#</th>
+                    <th>Edit:</th>
+                    <th>Delete:</th>
+                    <th>*</th>
+					<th>Course:</th>
+                    <th>Tees:</th>
+					<th>Score:</th>
+					<th>Par:</th>
+                    <th>Differential:</th>
+					<th>Date:</th>
+                    <th>Fairways:</th>
+                    <th>Greens:</th>
+                    <th>Putts:</th>
+				</tr>
+                </thead>
+                <tbody>
+                {% for score in scores %}
+					<tr>
+                        <td>{{ score.num }}</td>
+                        <td><a href="/edit_score/{{score.key.id}}">Edit</a></td>
+                        <td><a href="/delete_score/{{score.key.id}}">Delete</a></td>
+                        <td>{{ score.used_in_calculation }}</td>
+                        <td>{{ score.course.name }}</td>
+                        <td>{{ score.course.tees }}</td>
+                        <td>{{ score.gross_score }}</td>
+                        <td>{{ score.par }}</td>
+                        <td>{{ score.differential}}</td>
+                        <td>{{ score.date|date:"m/d/Y"}}</td>
+                        {% if score.fairways_hit %}
+                            <td>{{ score.fairways_hit }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                        {% if score.greens_hit %}
+                            <td>{{ score.greens_hit }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                        {% if score.putts %}
+                            <td>{{ score.putts }}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                    </tr>
+				
+				{% endfor %}
+                </tbody>
+                </table>
+				</p>
+			{% endif %}
+			<br/>
+			<br/>
+			<br/>
+       {% endblock %}

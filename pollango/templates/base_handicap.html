@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>web_handicap</title>
+  <meta name="description" content="website description" />
+  <meta name="keywords" content="website keywords, website keywords" />
+  <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" title="style" />
+  {% block javascript %}
+  {% endblock %}
+
+</head>
+
+<body>
+  <div id="main">
+    <div id="header">
+      <div id="logo">
+        <div id="logo_text">
+          <!-- class="logo_colour", allows you to change the colour of the text -->
+          <h1><a href="index.html">web<span class="logo_colour">handicap</span></a></h1>
+          {% if user %}
+            <h2>Welcome, {{user}}. <a href="{{logout_url}}">Log-out</a></h2>
+          {% else %}
+          <h2>Easily track your golf handicap and share it with friends.</h2>
+          {% endif %}
+        </div>
+      
+      </div>
+      <div id="menubar">
+        <ul id="menu">
+		{%  block menu_content %}
+          <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
+          <li {%if home%}class="selected"{%endif%}><a href="/">Home</a></li>
+          {% if user %}
+          <li {%if log_out%}class="selected"{%endif%}><a href="{{logout_url}}">Log-out</a></li>
+          {% else %}
+          <li><a href="{{login_url}}">Log-in</a></li>
+          {% endif %}
+		  <li {%if view_scores%}class="selected"{%endif%}><a href="/view_scores">View Scores</a></li>
+          <li {%if add_score%}class="selected"{%endif%}><a href="/add_score">Add a score</a></li>
+          <li {%if add_course%}class="selected"{%endif%}><a href="/add_course">Courses</a></li>
+
+		 {% endblock %}
+        </ul>
+      </div>
+      
+    </div>
+    <div id="site_content">
+      {%block sidebar%}
+      <div class="sidebar">
+        <!-- insert your sidebar items here -->
+
+        <h3>Extras</h3>
+        <h4>Handicap Formula</h4>
+        <h5>July 10, 2011</h5>
+        <p>webHandicap calculates your handicap according to the official USGA formula.<br /><a href="http://www.usga.org/Rule-Books/Handicap-System-Manual/Rule-10/">Read more</a></p>
+        <p></p>
+        <h4>Upcoming Features</h4>
+
+        <h5>July 8, 2011</h5>
+        <p>Handicap History<br/>Editing scores and courses</p>
+        <h3>Useful Links</h3>
+        <ul>
+          <li><a href="http://www.usga.org/Rule-Books/Handicap-System-Manual/Rule-10/">USGA formula</a></li>
+        </ul>
+      </div>
+	  {%endblock%}
+		  <div id="content">
+		  {% block main_content %}
+			<!-- insert the page content here -->
+			<h1>Welcome to webHandicap</h1>
+			<p><a href='./course_handicap'>Calculate Your Course Handicap</p>
+
+			
+			<h2>Track your handicap</h2>
+		{% endblock %}
+		 </div
+    </div>
+    <div id="content_footer"></div>
+    <div id="footer">
+      <a href="http://www.html5webtemplates.co.uk">design from HTML5webtemplates.co.uk</a>
+
+    </div>
+  </div>
+</body>
+</html>

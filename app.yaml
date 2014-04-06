@@ -1,0 +1,23 @@
+application: webhandicap
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /stylesheets
+  static_dir: stylesheets
+  
+- url: /view*
+  script: main.py
+  login: required
+
+- url: /add*
+  script: main.py
+  login: required
+
+- url: /plot*
+  script: main.py
+  login: required
+  
+- url: /.*
+  script: main.py

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+
+{% block contents %}
+
+{{poll}}
+<br />
+{% for choice in choices %}
+<div class="choice">
+{{choice}}
+</div>
+{% endfor %}
+<br />
+<a href="..">Make  a vote</a>
+{% endblock %}

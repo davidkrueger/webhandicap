@@ -1,0 +1,77 @@
+{% extends "base_handicap.html" %}
+        {% block javascript %}
+            <script type="text/javascript" src="/stylesheets/jquery-latest.js"></script> 
+            <script type="text/javascript" src="/stylesheets/jquery.tablesorter.min.js"></script> 
+            <script type="text/javascript" src="/stylesheets/sort_table_commands.js"></script> 
+        {% endblock %}
+		{% block main_content %}
+			<!-- insert the page content here -->
+			<h1>Add a new course:</h1>
+			
+			
+			{% if form %}
+				<form action="." method="post">
+				{{form.as_p}}
+
+				{% for form in choiceforms %}
+				{{form.as_p}}
+				{% endfor %}
+
+				<input type="submit" name="addcourse" value="Create Course" />
+
+				</form>
+			{% endif %}
+			
+			{% if courses %}
+			<h2>Current Courses:</h2>
+			<table id="myTable" class="tablesorter"> <thead>
+				<tr>                    
+					<th>Name:</th>
+					<th>Tees:</th>
+					<th>Par:</th>
+					<th>Yardage:</th>
+					<th>Slope:</th>
+					<th>Rating:</th>
+                    {% if user %}
+                    <th>My Course Handicap:</th>
+                    {% endif %}
+                    <th>Edit:</th>
+				</tr>
+                </thead>
+				{% for course in courses %}
+					<tr><td>	
+						{{ course.name }}
+						</td>
+						<td>
+						{{ course.tees }}
+						</td>
+						<td>
+						{{ course.par }}
+						</td>
+						<td>
+						{{ course.yardage }}
+						</td>
+						<td>
+						{{ course.slope }}
+						</td>
+						<td>
+						{{ course.rating }}
+						</td>
+                        {% if user %}
+                        <td>{{course.my_handicap}}</td>
+                        {% endif %}
+                        <td>
+                        <a href="/edit_course/{{course.key.id}}">Edit</a>
+                        </td>
+						
+					</tr>
+						<br/>
+				{% endfor %}
+			</table>
+				</p>
+			{% endif %}
+			
+			<br/>
+			<br/>
+			<br/>
+       {% endblock %}

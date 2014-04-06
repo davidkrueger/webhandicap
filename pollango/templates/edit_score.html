@@ -1,0 +1,25 @@
+{% extends "base_handicap.html" %}
+        {%block javascript%}
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script> 
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.5.3/jquery-ui.min.js"></script>
+            <script type="text/javascript" src="/stylesheets/add_score.js"></script>
+        {%endblock%}
+		{% block main_content %}
+			<!-- insert the page content here -->
+			<h1>
+			{% if message %}
+			{{message}}
+			{% endif %}
+			</h1>
+			{% if form %}
+				<h1>Edit Score:</h1>
+				<form action="." method="post">
+				{{form.as_p}}
+
+				<input type="submit" name="addscore" value="Edit Score" />
+                </form>
+			{% endif %}
+			<br/>
+			<br/>
+			<br/>
+       {% endblock %}

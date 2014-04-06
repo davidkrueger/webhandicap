@@ -1,0 +1,103 @@
+{% extends "base_handicap.html" %}
+    {% block javascript%}
+        <script type="text/javascript" src="/stylesheets/jquery-latest.js"></script> 
+        <script type="text/javascript" src="/stylesheets/jquery.tablesorter.min.js"></script> 
+        <script type="text/javascript" src="/stylesheets/sort_table_commands.js"></script> 
+    {% endblock %}
+    {%block sidebar%}
+    {%endblock%}
+		{% block main_content %}
+
+			<!-- insert the page content here -->
+			<h1></h1>
+			{% if handicap %}
+				<h1>Handicap Index: {{handicap}}</h1><br/>
+                <a href="/add_score">Add a new score</a><br/>
+                <a href="/plot_handicap">View handicap history</a>
+			{% endif %}
+			{% if score %}
+				<p><h2>My score:</h2><br/>
+                <table><thead>
+                <tr>
+                    <th>Hole:</th>
+                    {%for i in front_range%}
+                        <td>{{i}}</td>
+                    {%endfor%}
+                    <th>Out</th>
+                    {%for i in back_range%}
+                        <td>{{i}}</td>
+                    {%endfor%}
+                    <th>In</th>
+                    <th>Total</th>
+                    
+				</tr>
+                <tr>
+                    <th>Yardage</th>
+                    {%for i in front_yardage%}
+                        <td>{{i}}</td>
+                    {%endfor%}
+                    <th>{{front_yardage_total}}</th>
+                    {%for i in back_yardage%}
+                        <td>{{i}}</td>
+                    {%endfor%}
+                    <th>{{back_yardage_total}}</th>
+                    <th>{{yardage_total}}</th>
+                </tr>
+                <tr>
+                    <th>Handicap</th>
+                    {%for i in front_handicap%}
+                        <td>{{i}}</td>
+                    {%endfor%}
+                    <th></th>
+                    {%for i in back_handicap%}
+                        <td>{{i}}</td>
+                    {%endfor%}
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>Par</th>
+                    {%for i in front_par%}
+                        <td>{{i}}</td>
+                    {%endfor%}
+                    <th>{{front_par_total}}</th>
+                    {%for i in back_par%}
+                        <td>{{i}}</td>
+                    {%endfor%}
+                    <th>{{back_par_total}}</th>
+                    <th>{{par_total}}</th>
+                </tr>
+                <tr>
+                    <th>Score</th>
+                    {%for i in front_score%}
+                        <td>{{i}}</td>
+                    {%endfor%}
+                    <th>{{front_score_total}}</th>
+                    {%for i in back_score%}
+                        <td>{{i}}</td>
+                    {%endfor%}
+                    <th>{{back_score_total}}</th>
+                    <th>{{score_total}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for score in scores %}
+					<tr>
+                        <td><a href="/edit_score/{{score.key.id}}">Edit</a></td>
+                        <td><a href="/delete_score/{{score.key.id}}">Delete</a></td>
+                        <td>{{ score.used_in_calculation }}</td>
+                        <td>{{ score.course.name }}</td>
+                        <td>{{ score.gross_score }}</td>
+                        <td>{{ score.par }}</td>
+                        <td>{{ score.date|date:"m/d/Y"}}</td>
+                    </tr>
+				
+				{% endfor %}
+                </tbody>
+                </table>
+				</p>
+			{% endif %}
+			<br/>
+			<br/>
+			<br/>
+       {% endblock %}

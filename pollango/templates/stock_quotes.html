@@ -1,0 +1,47 @@
+{% extends "base_handicap.html" %}
+    {% block javascript%}
+        <script type="text/javascript" src="/stylesheets/jquery-latest.js"></script> 
+        <script type="text/javascript" src="/stylesheets/jquery.tablesorter.min.js"></script> 
+        <script type="text/javascript" src="/stylesheets/sort_table_commands.js"></script> 
+    {% endblock %}
+    {% block sidebar%}
+    {% endblock %}
+		{% block main_content %}
+
+			<!-- insert the page content here -->
+			<h1></h1>
+			{% if handicap %}
+				<h1>Handicap Index: {{handicap}}</h1><br/>
+                <a href="/add_score">Add a new score</a><br/>
+                <a href="/plot_handicap">View handicap history</a>
+			{% endif %}
+			{% if quotes %}
+				<p><h2>Stock Quotes:</h2><br/> <i>(click column name to sort)</i>
+                <table id="myTable" class="tablesorter"> <thead>
+                <tr>
+                    <th>Delete:</th>
+                    <th>Symbol:</th>
+                    <th>Price:</th>
+                    <th>Change:</th>
+				</tr>
+                </thead>
+                <tbody>
+                {% for quote in quotes %}
+                
+					<tr >
+                        <td><a href="/delete_score/{{score.key.id}}">Delete</a></td>
+                        <td class="{{quote.status}}">{{quote.symbol}}</td>
+                        <td class="{{quote.status}}">{{quote.price}}</td>
+                        <td class="{{quote.status}}">{{quote.change}}</td>
+                        </font>
+                    </tr>
+				
+				{% endfor %}
+                </tbody>
+                </table>
+				</p>
+			{% endif %}
+			<br/>
+			<br/>
+			<br/>
+       {% endblock %}
