@@ -21,24 +21,23 @@
 
 				</form>
 			{% endif %}
-			
 			{% if courses %}
 			<h2>Current Courses:</h2>
-			<table id="myTable" class="tablesorter"> <thead>
-				<tr>                    
-					<th>Name:</th>
-					<th>Tees:</th>
-					<th>Par:</th>
-					<th>Yardage:</th>
-					<th>Slope:</th>
-					<th>Rating:</th>
+            <table id="myTable" class="tablesorter"> <thead>
+                <tr>                    
+                    <th>Name:</th>
+                    <th>Tees:</th>
+                    <th>Par:</th>
+                    <th>Yardage:</th>
+                    <th>Slope:</th>
+                    <th>Rating:</th>
                     {% if user %}
                     <th>My Course Handicap:</th>
                     {% endif %}
-                    <th>Edit:</th>
-				</tr>
+                    <th>Edit:</th>  
+                </tr>
                 </thead>
-				{% for course in courses %}
+                {% for course in courses %}
 					<tr><td>	
 						{{ course.name }}
 						</td>

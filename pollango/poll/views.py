@@ -110,6 +110,7 @@ def calculate_handicap_from_user(user):
     for score in scores:
         score.differential = float(int(calculate_differential(score)*10))/10
     return calculate_handicap(scores)
+    
 @login_required   
 def view_scores(request):
     user = users.get_current_user()
@@ -186,12 +187,13 @@ def edit_course(request, id):
     if request.method == 'POST':
         form = bforms.addCourseForm(request.POST)
         if form.is_valid():
-            course.name = form.clean_data['name']
-            course.tees = form.clean_data['tees']
-            course.yardage = form.clean_data['yardage']
-            course.par = form.clean_data['par']
-            course.slope = int(form.clean_data['slope'])
-            course.rating = float(form.clean_data['rating'])
+            clean_data = form.clean()
+            course.name = clean_data['name']
+            course.tees = clean_data['tees']
+            course.yardage = clean_data['yardage']
+            course.par = clean_data['par']
+            course.slope = int(clean_data['slope'])
+            course.rating = float(clean_data['rating'])
             course.save()
             return HttpResponseRedirect('/add_course/')
     else:
@@ -315,29 +317,3 @@ def plot_handicap(request):
         score.day = score.date.day
         score.year = score.date.year
     return render('plot_handicap.html', request, {'scores':scores})
-
-def add_vocab_word(request):
-
-    if request.method == 'POST':
-        form = bforms.addVocabForm(request.POST)
-        if form.is_valid():
-            
-            form.save()
-            return HttpResponseRedirect('/add_vocab_word/')
-    else:
-         form = bforms.addVocabForm()
-    words = list(models.vocab_word.all().order('word'))
-    payload = dict(form=form)
-    payload['words'] = words
-    return render('add_vocab_form.html', request, payload) 
-    
-def show_words_for_app(request):
-    words = list(models.vocab_word.all())
-    payload = dict(words=words)
-    return render('word_display_for_app.html', request, payload)
-    
-def ajax_test(request):
-    return render('ajax_test.html', request)
-
-def ajax_test_do_something(request):
-    return "result from python?"

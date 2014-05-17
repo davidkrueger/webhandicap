@@ -35,11 +35,5 @@ class symbol(db.Model):
     symbol = db.StringProperty()
     price = db.StringProperty()
     change = db.StringProperty()
-    
-class vocab_word(db.Model):
-    word = db.StringProperty()
-    definition = db.StringProperty()
-    
-    def __unicode__(self):
-        return '%s--%d' % (self.course.name,  self.gross_score)
+
 

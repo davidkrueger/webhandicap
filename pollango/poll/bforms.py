@@ -29,7 +29,3 @@ class courseHandicapForm(djangoforms.ModelForm):
         self.fields['Index'] = forms.CharField(initial=index)
         self.fields['Course'] = forms.ChoiceField(choices=choices)
         self.fields['Slope'] = forms.CharField()
-
-class addVocabForm(djangoforms.ModelForm):
-    class Meta:
-        model = models.vocab_word
